@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Main extends URLConnectionReader {
 
     public static void main(String[] args) throws Exception {
-    //printApiData("http://192.168.1.136:8080/blik/");
+    printApiData("http://192.168.1.111:8080/blik/createCode");
 
         int sposPlatnosci;
         double reszta = 0;
@@ -95,14 +95,14 @@ public class Main extends URLConnectionReader {
             System.out.println("Wprowadz kod blik");
             String blikCode = myObj.nextLine();
 
-            String response = printApiData("http://192.168.1.136:8080/blik/" + blikCode);
+            String response = printApiData("http://192.168.1.111:8080/blik/" + blikCode);
             System.out.println(response);
 
 //            if(response == ){
 //
 //            }
-
-            //System.out.println("http://192.168.1.136:8080/blik/" + blikCode + amount);
+//
+//            System.out.println("http://192.168.1.111:8080/blik/" + blikCode + amount);
 
 
         }

@@ -12,9 +12,10 @@ public class URLConnectionReader {
                         yc.getInputStream()));
         String inputLine;
 
-        while ((inputLine = in.readLine()) != null)
-            //System.out.println(inputLine);
-            return inputLine;
+        while ((inputLine = in.readLine()) != null) {
+            System.out.println(inputLine);
+
+        }
         in.close();
         return "";
     }
