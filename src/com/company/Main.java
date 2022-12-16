@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class Main extends URLConnectionReader {
 
     public static void main(String[] args) throws Exception {
-    printApiData("http://192.168.1.111:8080/blik/createCode");
 
         int sposPlatnosci;
         double reszta = 0;
