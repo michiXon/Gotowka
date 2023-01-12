@@ -8,21 +8,30 @@ import java.util.Scanner;
 public class Main extends URLConnectionReader {
 
     public static void main(String[] args) throws Exception {
-
+        String EAN = "";
         int sposPlatnosci;
         double reszta = 0;
         int a = 0;
         int b;
         double zaplata = 0;
         int zaplata1 = 0;
+        float suma = 0;
         ArrayList<Integer> banknoty = new ArrayList<Integer>();
         Scanner myObj = new Scanner(System.in);
         Random rnd = new Random();
-        double am = rnd.nextInt(10000) / 100.0;
-        double amount = Math.round(Math.random() * 100000) / 100.0; //0,984187687253;      879.82
+        do{
+            System.out.println("Zeskanuj swoje produkty");
+            EAN = myObj.nextLine();
+            String response = printApiData("http://192.168.1.111:8080/EAN/" + EAN);
+            System.out.println(response);
+            System.out.println("wpisz 'x' jeśli zeskanujesz wszystkie produkty");
+        }while(EAN != "x");
+        //double am = rnd.nextInt(10000) / 100.0;
+        //double amount = Math.round(Math.random() * 100000) / 100.0; //0,984187687253;      879.82
         boolean doRepeat = false;
+
         do {
-            System.out.print("Do zaplaty: " + am + " Wybierz sposob platnosci:\n1. Karta\n2. BLIK\n3. Gotowka\nWpisz liczbe odpowiadajaca Twojemu wyborowi: ");
+            System.out.print("Do zaplaty: " + suma + " Wybierz sposob platnosci:\n1. Karta\n2. BLIK\n3. Gotowka\nWpisz liczbe odpowiadajaca Twojemu wyborowi: ");
             String input1 = myObj.nextLine();
 
             try {
@@ -54,14 +63,14 @@ public class Main extends URLConnectionReader {
         } while (doRepeat == false);
 
         if (sposPlatnosci == 3) {
-            System.out.println("kwota do zplaty wysosi: " + am);
-            while(zaplata1 <= am) {
+            System.out.println("kwota do zplaty wysosi: " + suma);
+            while(zaplata1 <= suma) {
                 while (a < 1) {
                     System.out.println("Podawaj banknoty pojeynczo");
                     System.out.println("Jesli podales wszystkie banknoty wpisz numer 0");
                     b = Integer.parseInt(myObj.nextLine());
                     if (b == 0) {
-                        if(zaplata1 >= am){
+                        if(zaplata1 >= suma){
                             a++;
                         }else{
                             System.out.println("Podano za malo banknotow !!!");
@@ -83,14 +92,14 @@ public class Main extends URLConnectionReader {
                 zaplata+=i;
             }
             System.out.println("zaplaciles: " + zaplata1);
-            System.out.println("koszt wynosil: " + am);
-            double c = am;
+            System.out.println("koszt wynosil: " + suma);
+            double c = suma;
             reszta = zaplata-c;
             DecimalFormat df = new DecimalFormat("###.##");
             System.out.println("Reszta wynosi: " + df.format(reszta) );
         }
         if(sposPlatnosci==2) {
-            System.out.println("Do zapłaty " + amount);
+            System.out.println("Do zapłaty " + suma);
             System.out.println("Wprowadz kod blik");
             String blikCode = myObj.nextLine();
 
