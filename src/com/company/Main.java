@@ -19,11 +19,22 @@ public class Main extends URLConnectionReader {
         ArrayList<Integer> banknoty = new ArrayList<Integer>();
         Scanner myObj = new Scanner(System.in);
         Random rnd = new Random();
+
         do{
             System.out.println("Zeskanuj swoje produkty");
             EAN = myObj.nextLine();
-            String response = printApiData("http://192.168.1.111:8080/EAN/" + EAN);
-            System.out.println(response);
+            String response = printApiData("http://192.168.1.109:8080/ean/" + EAN).replace('"', ' ');
+            System.out.println(response.length());
+            String[] first = response.split(",");
+            String[] second = first[0].split(":");
+            String[] third = first[1].split(":");
+            float price = Float.parseFloat(third[1]);
+            suma += price;
+            String name = second[1];
+            for (int i = 0; i< first.length; i++){
+
+                System.out.println(name + " " + price);
+            }
             System.out.println("wpisz 'x' jeśli zeskanujesz wszystkie produkty");
         }while(EAN != "x");
         //double am = rnd.nextInt(10000) / 100.0;
@@ -103,7 +114,7 @@ public class Main extends URLConnectionReader {
             System.out.println("Wprowadz kod blik");
             String blikCode = myObj.nextLine();
 
-            String response = printApiData("http://192.168.1.111:8080/blik/" + blikCode);
+            String response = printApiData("http://192.168.1.109:8080/blik/" + blikCode);
             System.out.println(response);
 
 //            if(response == ){

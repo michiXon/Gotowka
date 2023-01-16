@@ -10,14 +10,14 @@ public class URLConnectionReader {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(
                         yc.getInputStream()));
-        String inputLine;
+        String inputLine, result = "";
 
         while ((inputLine = in.readLine()) != null) {
-            System.out.println(inputLine);
+            result += inputLine;
 
         }
         in.close();
-        return "";
+        return result;
     }
 
 }
