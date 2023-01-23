@@ -19,22 +19,27 @@ public class Main extends URLConnectionReader {
         ArrayList<Integer> banknoty = new ArrayList<Integer>();
         Scanner myObj = new Scanner(System.in);
         Random rnd = new Random();
-
+        int x =1;
+        String productName = "";
+        System.out.println("Zeskanuj swoje produkty");
         do{
-            System.out.println("Zeskanuj swoje produkty");
+            System.out.print("-> ");
             EAN = myObj.nextLine();
             String response = printApiData("http://192.168.1.109:8080/ean/" + EAN).replace('"', ' ');
-            System.out.println(response.length());
             String[] first = response.split(",");
             String[] second = first[0].split(":");
             String[] third = first[1].split(":");
-            float price = Float.parseFloat(third[1]);
+            String[] czwarty = third[1].split("}");
+            productName = czwarty[0];
+//            System.out.println(third[1]+ " <-- third 1     " + third[0] + " <-- third 0");
+//            System.out.println(second[1]+ " <-- second 1     " + second[0] + " <-- second 0");
+            float price = Float.parseFloat(second[1]);
             suma += price;
-            String name = second[1];
-            for (int i = 0; i< first.length; i++){
+            System.out.println(x + ". "+productName + " " + price + " zl");
+            System.out.println("lacznie: "+ suma + " zl");
+            x++;
 
-                System.out.println(name + " " + price);
-            }
+
             System.out.println("wpisz 'x' jeśli zeskanujesz wszystkie produkty");
         }while(EAN != "x");
         //double am = rnd.nextInt(10000) / 100.0;
