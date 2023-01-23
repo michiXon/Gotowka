@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Main extends URLConnectionReader {
+public class Main extends com.company.URLConnectionReader {
 
     public static void main(String[] args) throws Exception {
         String EAN = "";
