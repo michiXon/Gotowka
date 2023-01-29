@@ -1,7 +1,16 @@
 package com.company;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -25,23 +34,24 @@ public class Main extends com.company.URLConnectionReader {
         do{
             System.out.print("-> ");
             EAN = myObj.nextLine();
-            String response = printApiData("http://192.168.1.109:8080/ean/" + EAN).replace('"', ' ');
-            String[] first = response.split(",");
-            String[] second = first[0].split(":");
-            String[] third = first[1].split(":");
-            String[] czwarty = third[1].split("}");
-            productName = czwarty[0];
+            if (!Objects.equals(EAN, "x")) {
+                String response = printApiData("http://localhost:8080/ean/" + EAN).replace('"', ' ');
+                String[] first = response.split(",");
+                String[] second = first[0].split(":");
+                String[] third = first[1].split(":");
+                String[] czwarty = third[1].split("}");
+                productName = czwarty[0];
 //            System.out.println(third[1]+ " <-- third 1     " + third[0] + " <-- third 0");
 //            System.out.println(second[1]+ " <-- second 1     " + second[0] + " <-- second 0");
-            float price = Float.parseFloat(second[1]);
-            suma += price;
-            System.out.println(x + ". "+productName + " " + price + " zl");
-            System.out.println("lacznie: "+ suma + " zl");
-            x++;
+                float price = Float.parseFloat(second[1]);
+                suma += price;
+                System.out.println(x + ". " + productName + " " + price + " zl");
+                System.out.println("lacznie: " + suma + " zl");
+                x++;
 
-
-            System.out.println("wpisz 'x' jeśli zeskanujesz wszystkie produkty");
-        }while(EAN != "x");
+                System.out.println("wpisz 'x' jeśli zeskanujesz wszystkie produkty");
+            }
+        }while(!Objects.equals(EAN, "x"));
         //double am = rnd.nextInt(10000) / 100.0;
         //double amount = Math.round(Math.random() * 100000) / 100.0; //0,984187687253;      879.82
         boolean doRepeat = false;
@@ -119,8 +129,14 @@ public class Main extends com.company.URLConnectionReader {
             System.out.println("Wprowadz kod blik");
             String blikCode = myObj.nextLine();
 
-            String response = printApiData("http://192.168.1.109:8080/blik/" + blikCode);
-            System.out.println(response);
+            printApiData("http://localhost:8080/blik/"+blikCode+"/"+suma);
+
+            String token = printApiData("http://localhost:8080/blik/token/"+blikCode);
+            PushNotifictionHelper.sendPushNotification(token);
+
+//            String response = printApiData("http://192.168.1.109:8080/blik/" + blikCode);
+//            System.out.println(response);
+
 
 //            if(response == ){
 //

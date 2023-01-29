@@ -10,7 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class PushNotifictionHelper {
-    public final static String AUTH_KEY_FCM = "AIzaSyB6C1RbQle0CeL-VQRE1XHbSsMl6k813dY";
+    public final static String AUTH_KEY_FCM = "AAAAm__G6qw:APA91bGF5nR1HaohmcJzQOmL51k-TWbTHyjEwIjWGwy_8S4-OUfBZoYZvYRgZdsKXH1TMNx-5E4qHNJEcpOw7_MJI9zmTb2FfshhBOoTzG0q4ZT5KOmU7lMQAvn3oZU93vuqvKW41xUv";
     public final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
 
     public static String sendPushNotification(String deviceToken)
@@ -20,7 +20,6 @@ public class PushNotifictionHelper {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
         conn.setUseCaches(false);
-        conn.setDoInput(true);
         conn.setDoOutput(true);
 
         conn.setRequestMethod("POST");
@@ -31,7 +30,7 @@ public class PushNotifictionHelper {
 
         json.put("to", deviceToken.trim());
         JSONObject info = new JSONObject();
-        info.put("title", "notification title"); // Notification title
+        info.put("title", "potwierdz transaskcje"); // Notification title
         info.put("body", "message body"); // Notification
         // body
         json.put("notification", info);
@@ -41,8 +40,7 @@ public class PushNotifictionHelper {
             wr.write(json.toString());
             wr.flush();
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    (conn.getInputStream())));
+            BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
             String output;
             System.out.println("Output from Server .... \n");
